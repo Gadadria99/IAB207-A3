@@ -31,10 +31,16 @@
 
           <!-- Login and Register buttons on the left -->
           <div class="d-flex">
-            <a class="btn btn-login btn-primary mr-2" href="/login">Login</a>
-            <a class="btn btn-register btn-secondary" href="/register"
-              >Register</a
-            >
+            <!-- Register/Login/Logout and welcome -->
+            {% if current_user.is_authenticated %}
+                <a class="btn btn-register disabled text-muted" href="#">Welcome {{current_user.name}}</a>
+                <a class="btn btn-register btn-secondary" href="{{ url_for('auth.logout') }}">Log Out</a>
+            {% else %}
+                <a class="btn btn-register btn-secondary" href="{{ url_for('auth.register') }}">Register</a>
+                <a class="btn btn-register btn-secondary" href="{{ url_for('auth.login') }}">Log In</a>
+            {% endif %}
+
+            <a class="btn btn-register btn-secondary" href="{{ url_for('event.create') }}">Create Event</a>
           </div>
         </div>
       </nav>

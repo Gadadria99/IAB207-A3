@@ -55,10 +55,10 @@ def login():
             error = 'Incorrect password'
         if error is None:
             #all good, set the login_user of flask_login to manage the user
-            login_user(user, force=True)
+            login_user(user)
             print('Successfully logged in', 'Success')
             flash('You logged in successfully')
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('main.index'))
         else:
             flash(error)
     return render_template('user.html', form = login_form, heading = 'Login')
