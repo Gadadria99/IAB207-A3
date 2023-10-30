@@ -1,35 +1,64 @@
-{% include "base.html" %} {% from "bootstrap5/form.html" import render_form %}
+{% include "base.html" %}
+{% from "bootstrap5/form.html" import render_form %}
 {% block body %}
+<style>
+  /* Custom CSS to center the form and create a gap */
+  .centered-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-<div class="page-header">
+  /* Style the "New user?" link */
+  .new-user-link {
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 16px;
+    padding-left: 50%;
+
+  }
+</style>
+
+<div class="page-header" style="display: flex; justify-content: left; align-items: left; padding-left: 25%; font-size: 20px; padding-top: 10%;">
   <h4>{{heading}}</h4>
 </div>
 
-<!-- flashes any messages to the user -->
-{% with messages = get_flashed_messages() %} {% if messages %}
-<!-- check if there are any messages -->
+<!-- Center the form using custom CSS class -->
+<div class="centered-form-container">
+  <div class="col-md-6">{{render_form(form)}}</div>
+</div>
+
+<!-- When you have a login form, show the user a styled link to register -->
+{% if heading|lower =='login' %}
+<div class="col-md-4">
+  <p class="new-user-link">
+    New user?
+    <a href="{{ url_for('auth.register') }}" style="color: #007BFF; text-decoration: none;">Click here to register</a>.
+  </p>
+</div>
+{% endif %}
+{% endblock %}
+
+<!-- Flashes any messages to the user -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<!-- Check if there are any messages -->
 <div class="container-fluid">
   <div class="row mt-3 mb-3">
     <div class="col-md-12">
       {% for message in messages %}
-      <!--loop through the messages-->
+      <!-- Loop through the messages -->
       <div class="alert alert-info">{{message}}</div>
-      <!--display as alert-->
+      <!-- Display as an alert -->
       {% endfor %}
     </div>
   </div>
 </div>
-{% endif %} {% endwith %}
+{% endif %}
+{% endwith %}
 
-<!-- Form rendering is simple and easy if using bootstrap -->
-<div class="col-md-6">{{render_form(form)}}</div>
-
-<!-- When you have login form, then do show the user a link to register -->
-{% if heading|lower =='login' %}
-<div class="col-md-4">
-  <p>
-    New user?
-    <a href="{{ url_for('auth.register') }}">Click here to register</a>.
-  </p>
-</div>
-{% endif %} {% endblock %}
+<footer class="footer">
+  (C) IAB207, 2023. all rights reserved.
+</footer>
