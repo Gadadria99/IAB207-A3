@@ -7,6 +7,11 @@ from werkzeug.utils import secure_filename
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
 
+@eventbp.route('/')
+def index():
+    events = db.session.query(Event).all()
+    return render_template('index.html', events=events)
+
 @eventbp.route('/<id>')
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
@@ -68,3 +73,4 @@ def comment(id):
       print('Your comment has been added', 'success') 
     # using redirect sends a GET request to destination.show
     return redirect(url_for('event.show', id=id))
+    
