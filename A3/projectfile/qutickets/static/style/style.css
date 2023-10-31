@@ -1,0 +1,300 @@
+
+h1 {
+    color:blueviolet;
+    font-size: smaller;
+ }
+
+ .container-fluid {
+    background-color: aquamarine;
+    padding:0;
+ }
+ 
+
+ .custom-navbar {
+   background-color: aquamarine; /* Change the background color to your desired color */
+}
+
+/* Center the logo */
+.navbar-brand {
+   margin-left: auto;
+   margin-right: auto;
+   display: block;
+}
+
+.navbar-logo{
+   margin: 1em;
+   
+}
+
+/* Style the login and register buttons */
+.btn-login {
+   background-color: rgb(180, 248, 225); /* Customize the button color */
+   border-color: rgb(180, 248, 225);
+   margin: 1em;
+   min-width: 15vh;
+}
+
+.btn-register {
+   background-color: #2ecc71; /* Customize the button color */
+   border-color: #2ecc71;
+   margin: 1em;
+}
+
+
+#custom-col {
+   display:flex;
+   justify-content: left;
+   padding:2em;
+}
+
+#custom-col-2 {
+   display:flex;
+   justify-content: center;
+  
+}
+
+
+
+.col-md-12 {
+   text-align: center;
+   
+}
+
+
+
+.col-md-3 {
+   padding:2em;
+   max-height: 450px; /* Set the maximum height of each column */
+   min-width:300px;
+   overflow-y: auto;
+   text-align: center;
+}
+
+.col-md-3::-webkit-scrollbar {
+   display: none;
+}
+
+.card {
+   min-height: fit-content;
+}
+
+.btn-discover {
+   background-color: rgb(180, 248, 225); /* Customize the button color */
+   border-color: rgb(180, 248, 225);
+   margin: 1em;
+   min-width:20%;
+   
+
+}
+
+
+
+
+/* card customisations */
+
+.card {
+   max-width: 300px;
+   min-width:200px;
+   max-height:300px;
+   background-color: #FFF;
+   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+   background-position: center;
+   overflow: hidden;
+   position: relative;
+   margin: 10px auto;
+   cursor: pointer;
+   border-radius: 10px;
+}
+
+.card img {
+   transition: all linear 0.25s;
+}
+
+.card .profile-name {
+   position: absolute;
+   left: 30px;
+   bottom: 70px;
+   font-size: 30px;
+   color: #FFF;
+   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+   font-weight: bold;
+   transition: all linear 0.25s;
+}
+
+.card .profile-icons {
+   position: absolute;
+   bottom: 30px;
+   right: 30px;
+   color: #FFF;
+   transition: all linear 0.25s;
+}
+
+.card .profile-username {
+   position: absolute;
+   bottom: 50px;
+   left: 30px;
+   color: #FFF;
+   font-size: 13px;
+   transition: all linear 0.25s;
+}
+
+.card .profile-date {
+   position: absolute;
+   bottom: 35px;
+   left: 30px;
+   color: #FFF;
+   font-size: 13px;
+   transition: all linear 0.25s;
+}
+
+.card .profile-icons .fa {
+   margin: 5px;
+}
+
+.card:hover img {
+   filter: grayscale(100%);
+}
+
+.card:hover .profile-name {
+   bottom: 80px;
+}
+
+.card:hover .profile-username {
+   bottom: 60px;
+}
+
+.card:hover .profile-icons {
+   right: 40px;
+}
+
+
+p,
+a {
+    font-family: "Open Sans";
+    margin: 0px;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+}
+
+
+.footer {
+   height: 4em;
+   background-color: aquamarine;
+   text-align: center;
+   padding:2.5em;
+}
+
+h2 {
+   text-align: center;
+   font-variant: small-caps;
+   color:gray;
+}
+
+
+
+/* event page styling */
+
+
+.event-container {
+   min-height:fit-content;
+   border-radius: 8px;
+   background-color:rgba(179, 255, 255, 0.5);
+   padding:4em;
+   margin: 2em 2em 0em 2em;
+}
+
+.event-info {
+   text-align: center;
+}
+
+.event-text-col {
+   text-align: center;
+   max-height: 1000px;
+   overflow-y: auto;
+}
+
+.event-text-col::-webkit-scrollbar {
+   display: none;
+}
+
+.checked {
+   color: orange;
+ }
+
+
+
+
+
+/* event creation page styling */
+
+
+.files input {
+   outline: 2px dashed #92b0b3;
+   outline-offset: -10px;
+   -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+   transition: outline-offset .15s ease-in-out, background-color .15s linear;
+   padding: 120px 0px 85px 35%;
+   text-align: center !important;
+   margin: 0;
+   width: 100% !important;
+}
+.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+   -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+   transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+}
+.files{ position:relative}
+.files:after {  pointer-events: none;
+   position: absolute;
+   top: 60px;
+   left: 0;
+   width: 50px;
+   right: 0;
+   height: 56px;
+   content: "";
+   background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+   display: block;
+   margin: 0 auto;
+   background-size: 100%;
+   background-repeat: no-repeat;
+}
+
+.files:before {
+   position: absolute;
+   bottom: 10px;
+   left: 0;  pointer-events: none;
+   width: 100%;
+   right: 0;
+   height: 57px;
+   content: " or drag it here. ";
+   display: block;
+   margin: 0 auto;
+   color: #2ea591;
+   font-weight: 600;
+   text-transform: capitalize;
+   text-align: center;
+}
+
+
+/* Profile page styling */
+
+
+.event-container-profile {
+   min-height:fit-content;
+   max-width: fit-content;
+   border-radius: 8px;
+   background-color:rgba(179, 255, 255, 0.5);
+   padding:4em;
+   
+   margin:auto;
+   max-height: 100vh; /* Set the maximum height of each column */
+   overflow-y: auto;
+   text-align: center;
+}
+
+.event-container-profile::-webkit-scrollbar {
+   display: none;
+}

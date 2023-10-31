@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+
+    <main>
+        <div class="col event-container">
+          <div class="row mt-3">
+          <div class="col-md-2 event-info">
+            <h3>{{event.name}}</h3>
+
+            <h5 style="color:crimson;">X Tickets Left!</h5>
+            <h6>{{event.eventTime}}</h6>
+            <h5 style="font-variant:small-caps; color:crimson; font-weight: bolder; background-color: rgba(29, 228, 152, 0.678); border-radius: 5px; padding:10px;">book now!</h4>
+            <h3>{{event.venueName}}</h3>
+            <h6>{{event.venueType}}</h6>
+            <h4 style="font-variant:small-caps; color:aliceblue; font-weight: bolder; background-color: blueviolet; border-radius: 5px; padding:10px;">{{event.category}}</h4>
+
+            <img class="img-fluid" src="/static/img/pubtrans.png" style="border-radius: 8px; margin-top:15px; margin-bottom:15px;">
+          </div>
+            <div class="col-md-6">
+              <img class="img-fluid" src="/{{event.eventImage}}" style="border-radius:8px;">
+              <iframe width="100%" height="200" style="border:0; margin-top:15px; border-radius:8px;" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJc7fJl29o1moRoiA_lctdCbQ&destination=place_id:ChIJ56q4amRo1moR5IjBvOcaIsg&key=AIzaSyATie1u0QbqTpOb1yfKS6tEDPG5ScYlNWg">
+              </iframe> 
+            </div>
+            <div class="col-md-4 event-text-col">
+              <h4>BOOKING ID: 12345</h4>
+              <form>
+                <div class="form-group">
+                  <label for="ticketselect">No. of Tickets</label> 
+                  <div>
+                    <select id="ticketselect" name="ticketselect" aria-describedby="ticketselectHelpBlock" required="required" class="custom-select">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                    </select> 
+                    <span id="ticketselectHelpBlock" class="form-text text-muted">Please select your desired number of tickets</span>
+                  </div>
+                </div> 
+                <div class="form-group">
+                  <button name="submit" type="submit" class="btn btn-register">PLACE BOOKING</button>
+                </div>
+              </form>
+              <p>
+                {{event.description}} 
+              </p>
+
+
+
+                        <!-- Comments -->  
+              <div class="row">  
+                <div class="col-md-12">  
+                  <h2>Comments</h2>  
+                </div> 
+                <div class="col-md-6">
+                  {{render_form(form, "/events/{0}/comment".format(event.id))}}
+                </div> 
+              </div>  
+              {% for comment in event.comments %}
+              <div class="row border-bottom">  
+                <div class="col-md-12">  
+                  <b>{{comment.user}} <span class="ml-2 text-muted">{{comment.created_at}}</span></b>  
+                  <p>{{comment.text}}</p>  
+                </div>  
+              </div>  
+              {% endfor %}
+
+            </div> 
+          </main>        
+
+          {% endblock %}
+
+
