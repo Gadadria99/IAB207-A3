@@ -62,3 +62,4 @@ def not_found(e):
 # inbuilt function which takes error as parameter 
 def not_found(e): 
   return render_template("500.html", error=e)
+
