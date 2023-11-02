@@ -298,3 +298,81 @@ h2 {
 .event-container-profile::-webkit-scrollbar {
    display: none;
 }
+
+/*404 page styling*/
+
+
+.page_404{padding: 40px 0;background:#fff;
+}
+
+.page_404  img{ width:100%;}
+
+.four_zero_four_bg{
+ 
+ background-image: url(https://cdn.dribbble.com/users/19381/screenshots/2928915/media/bf7f7603472da6d771a3b31cc8c9c679.gif);
+    height: 520px;
+    background-position: center !important;
+    margin-left: auto;
+    margin-right: auto;
+    
+ }
+ 
+ 
+ .four_zero_four_bg h2{
+ font-size:80px;
+
+ 
+ }
+ 
+  .four_zero_four_bg h3{
+			 font-size:80px;
+          
+			 }
+			 
+			 .btn_404{			 
+	color: #fff!important;
+    padding: 10px 30px;
+    background-color: #2ecc71; /* Customize the button color */
+    border-color: #2ecc71;
+    margin: 20px 0;
+    display: inline-block;}
+	.contant_box_404{ margin-top:-0px;}
+
+
+/*500 page styling*/
+
+.page_404{padding: 40px 0;background:#fff;
+}
+
+.page_500  img{ width:100%;}
+
+.four_zero_four_bg{
+ 
+ 
+    height: 520px;
+    background-position: center !important;
+    margin-left: auto;
+    margin-right: auto;
+    
+ }
+ 
+ 
+ .four_zero_four_bg h2{
+ font-size:80px;
+
+ 
+ }
+ 
+  .four_zero_four_bg h3{
+			 font-size:80px;
+          
+			 }
+			 
+			 .btn_500{			 
+	color: #fff!important;
+    padding: 10px 30px;
+    background-color: #2ecc71; /* Customize the button color */
+    border-color: #2ecc71;
+    margin: 20px 0;
+    display: inline-block;}
+	.contant_box_404{ margin-top:-0px;}
