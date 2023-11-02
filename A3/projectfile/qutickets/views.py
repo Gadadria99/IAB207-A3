@@ -11,6 +11,7 @@ def index():
     
     if request.method == 'POST':
             search = request.form["searchBar"]
-            events = db.session.query(Event).filter(Event.name == search).all()
+            tag = "%{}%".format(search)
+            events = db.session.query(Event).filter(Event.name.like(tag)).all()
 
     return render_template('index.html', events=events)
