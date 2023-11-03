@@ -74,10 +74,6 @@ h1 {
    display: none;
 }
 
- /*Search bar styling*/
-
-
-
 .card {
    min-height: fit-content;
 }
@@ -303,6 +299,7 @@ h2 {
    display: none;
 }
 
+
 /*404 page styling*/
 
 
@@ -312,27 +309,27 @@ h2 {
 .page_404  img{ width:100%;}
 
 .four_zero_four_bg{
- 
+
  background-image: url(https://cdn.dribbble.com/users/19381/screenshots/2928915/media/bf7f7603472da6d771a3b31cc8c9c679.gif);
     height: 520px;
     background-position: center !important;
     margin-left: auto;
     margin-right: auto;
-    
+
  }
- 
- 
+
+
  .four_zero_four_bg h2{
  font-size:80px;
 
- 
+
  }
- 
+
   .four_zero_four_bg h3{
 			 font-size:80px;
-          
+
 			 }
-			 
+
 			 .btn_404{			 
 	color: #fff!important;
     padding: 10px 30px;
@@ -351,27 +348,27 @@ h2 {
 .page_500  img{ width:100%;}
 
 .four_zero_four_bg{
- 
- 
+
+
     height: 520px;
     background-position: center !important;
     margin-left: auto;
     margin-right: auto;
-    
+
  }
- 
- 
+
+
  .four_zero_four_bg h2{
  font-size:80px;
 
- 
+
  }
- 
+
   .four_zero_four_bg h3{
 			 font-size:80px;
-          
+
 			 }
-			 
+
 			 .btn_500{			 
 	color: #fff!important;
     padding: 10px 30px;
@@ -414,7 +411,7 @@ h2 {
    width: 44px;
    height: 44px;
  }
- 
+
  .svgSearch {
    color: #fff;
    fill: currentColor;
