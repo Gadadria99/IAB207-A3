@@ -50,14 +50,6 @@ def create_app():
 
     from . import auth
     app.register_blueprint(auth.auth_bp)
-    
-    return app
-@app.errorhandler(404) 
-# inbuilt function which takes error as parameter 
-def not_found(e): 
-  return render_template("404.html", error=e)
 
-@app.errorhandler(500) 
-# inbuilt function which takes error as parameter 
-def not_found(e): 
-  return render_template("500.html", error=e)
+    return app
+
