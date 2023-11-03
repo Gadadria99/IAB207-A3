@@ -25,29 +25,16 @@
               </iframe> 
             </div>
             <div class="col-md-4 event-text-col">
-              <h4>BOOKING ID: 12345</h4>
-              <form>
+              <h4>EVENT ID: {{ event.id }}</h4>
+              <form method="POST" action="{{ url_for('event.purchase', id=event.id) }}">
                 <div class="form-group">
                   <label for="ticketselect">No. of Tickets</label> 
-                  <div>
-                    <select id="ticketselect" name="ticketselect" aria-describedby="ticketselectHelpBlock" required="required" class="custom-select">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
-                    </select> 
-                    <span id="ticketselectHelpBlock" class="form-text text-muted">Please select your desired number of tickets</span>
-                  </div>
-                </div> 
+                  <input type="number" id="ticketselect" name="ticketselect" aria-describedby="ticketselectHelpBlock" required="required" class="form-control">
+                  <span id="ticketselectHelpBlock" class="form-text text-muted">Please enter the desired number of tickets</span>
+                </div>
                 <div class="form-group">
                   <button name="submit" type="submit" class="btn btn-register">PLACE BOOKING</button>
-                </div>
+              </div>
               </form>
               <p>
                 {{event.description}} 

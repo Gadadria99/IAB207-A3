@@ -40,20 +40,59 @@ auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/login', methods = ['GET', 'POST'])
 def login():
-    loginForm = LoginForm()
-    if loginForm.validate_on_submit():
-        print('Successfully logged in', 'Success')
-        flash('You logged in successfully')
-        return redirect(url_for('auth.login'))
-    return render_template('user.html', form = loginForm, heading = 'Login')
+    login_form = LoginForm()
+    if login_form.validate_on_submit():
+        #get the username and password from the database
+        user_name = login_form.user_name.data
+        password = login_form.password.data
+        user = db.session.scalar(db.select(User).where(User.name==user_name))
+        error = None
+        #if there is no user with that name
+        if user is None:
+            error = 'Incorrect username'#could be a security risk to give this much info away
+        #check the password - notice password hash function
+        elif not check_password_hash(user.password_hash, password): # takes the hash and password
+            error = 'Incorrect password'
+        if error is None:
+            #all good, set the login_user of flask_login to manage the user
+            login_user(user)
+            print('Successfully logged in', 'Success')
+            flash('You logged in successfully')
+            return redirect(url_for('main.index'))
+        else:
+            flash(error)
+    return render_template('user.html', form = login_form, heading = 'Login')
 
-
-
-@auth_bp.route('/register', methods = ['GET', 'POST'])
+@auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
-    registerForm = RegisterForm()
-    if registerForm.validate_on_submit():
-        print('Successfully registered in', 'Success')
-        flash('Successfully Registered')
-        return redirect(url_for('auth.register'))
-    return render_template('user.html', form = registerForm, heading = 'Register')
+    register = RegisterForm()
+    #the validation of form is fine, HTTP request is POST
+    if (register.validate_on_submit()==True):
+            #get username, password and email from the form
+            uname = register.user_name.data
+            pwd = register.password.data
+            email = register.email_id.data
+            #check if a user exists
+            user = db.session.scalar(db.select(User).where(User.name==uname))
+            if user:#this returns true when user is not None
+                flash('Username already exists, please try another')
+                return redirect(url_for('auth.register'))
+            # don't store the password in plaintext!
+            pwd_hash = generate_password_hash(pwd)
+            #create a new User model object
+            new_user = User(name=uname, password_hash=pwd_hash, emailid=email)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('You logged in successfully')
+            #commit to the database and redirect to HTML page
+            return redirect(url_for('main.index'))
+    #the else is called when the HTTP request calling this page is a GET
+    else:
+        return render_template('user.html', form=register, heading='Register')
+    
+
+@auth_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.index'))

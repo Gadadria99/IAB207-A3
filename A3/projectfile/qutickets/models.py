@@ -1,8 +1,8 @@
-from . import db
 from datetime import datetime
-import enum
-from sqlalchemy import Integer, Enum
 
+from flask_login import UserMixin
+
+from . import db
 
 # class EnumCat(enum.Enum):
 #     one = 'Local'
@@ -10,19 +10,17 @@ from sqlalchemy import Integer, Enum
 #     three = 'Emerging'
 #     four = 'Impromptu'
 
-
-
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users' # good practice to specify table name
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), index=True, unique=True, nullable=False)
     emailid = db.Column(db.String(100), index=True, nullable=False)
-	# password should never stored in the DB, an encrypted password is stored
-	# the storage should be at least 255 chars long, depending on your hashing algorithm
+	#password is never stored in the DB, an encrypted password is stored
+	# the storage should be at least 255 chars long
     password_hash = db.Column(db.String(255), nullable=False)
     # relation to call user.comments and comment.created_by
     comments = db.relationship('Comment', backref='user')
-    
+    # Define a many-to-many relationship for booked events
     # string print method
     def __repr__(self):
         return f"Name: {self.name}"
@@ -42,6 +40,8 @@ class Event(db.Model):
     venueType = db.Column(db.String(120))
     ticketsAvailable = db.Column(db.Integer())
 
+    # Define a many-to-many relationship for users who have booked this event
+    bookings = db.relationship('Bookings', backref='user', lazy='dynamic')
     
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
@@ -63,3 +63,17 @@ class Comment(db.Model):
     # string print method
     def __repr__(self):
         return f"Comment: {self.text}"
+    
+
+class Bookings(db.Model):
+    __tablename__ = 'bookings'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
+    num_tickets = db.Column(db.Integer, nullable=False)
+    purchase_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __init__(self, user_id, event_id, num_tickets):
+        self.user_id = user_id
+        self.event_id = event_id
+        self.num_tickets = num_tickets
