@@ -23,6 +23,7 @@ def show(id):
     return render_template('events/showevent.html', event=event, form=cform)
 
 @eventbp.route('/createevent', methods=['GET', 'POST'])
+@login_required
 def create():
   print('Method type: ', request.method)
   form = EventForm()
@@ -59,6 +60,7 @@ def check_upload_file(form):
 
 
 @eventbp.route('/<id>/comment', methods=['GET', 'POST'])  
+@login_required
 def comment(id):  
     form = CommentForm()  
     #get the destination object associated to the page and the comment

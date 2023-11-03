@@ -1,19 +1,127 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<div class="row mt-4">
-  {% for event in events %}
-  <div class="col-md-3">
-    <h2>{{ event.name }}</h2>
-    <div class="card">
-      <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->
-        <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">
-        <div class="profile-name">{{ event.name }}</div>
-        <div class="profile-username">{{ event.venueName }}</div>
-        <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
-      </a>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-{% endblock %}
+
+<html>
+        {% block header %}
+        <div class="col">
+          <iframe width="100%" height="450" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/search?q=live%20music%20near%20St%20Kilda%20VIC%2C%20Australia&key=AIzaSyATie1u0QbqTpOb1yfKS6tEDPG5ScYlNWg">
+          </iframe> 
+          <div class="col" div id="custom-col">
+          <p>Discover<br />
+            /d&#618;&#712;sk&#652;v&#601;/</p>
+           
+           <p> verb: discover; <br />
+            1. find unexpectedly or during a search.<br />
+            2.<br />
+            archaic;<br />
+           Divulge (a secret).<br />
+           </p>
+          </div>
+
+          <div class="col" div id="custom-col-2">
+            <form action = "" class= "form_search col-md-12" role="search" method = "POST">
+              <input class= "searchInp" type="search" id="searchBar" name="searchBar"
+              placeholder="Discover"
+              aria-label="Search through site content">
+              <button class = "searchbtn">Discover</b>
+                <svg class= "svgSearch" viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg>
+              </button>
+                </form>
+          
+            
+        </div>
+        </div>
+        {% endblock %}
+
+        {% block content %}
+         <!-- Create a row for the event cards -->
+         <div class="row mt-4">
+          <!-- Column 1 -->
+          
+          
+          <div class="col-md-3">
+            
+            <h2>local</h2>
+            {% for event in events %}
+              {% if event.category == 'one'  %}
+              
+                
+              <div class="card">
+                
+                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">
+
+                  <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->
+                      <div class="profile-name">{{ event.name }}</div>
+                      <div class="profile-username">{{ event.venueName }}</div>
+                      <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
+                    </a>
+              </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          
+          <!-- Column 2 -->
+          <div class="col-md-3">
+            
+            <h2>Imported</h2>
+            {% for event in events %}
+              {% if event.category == 'two'  %}
+              
+                
+              <div class="card">
+                
+                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">
+
+                  <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->
+                      <div class="profile-name">{{ event.name }}</div>
+                      <div class="profile-username">{{ event.venueName }}</div>
+                      <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
+                    </a>
+              </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <!-- Column 3 -->
+          <div class="col-md-3">
+            
+            <h2>Emerging</h2>
+            {% for event in events %}
+              {% if event.category == 'three'  %}
+              
+                
+              <div class="card">
+                
+                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">
+
+                  <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->
+                      <div class="profile-name">{{ event.name }}</div>
+                      <div class="profile-username">{{ event.venueName }}</div>
+                      <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
+                    </a>
+              </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <!-- Column 4 -->
+          <div class="col-md-3">
+            
+            <h2>Impromptu</h2>
+            {% for event in events %}
+              {% if event.category == 'four'  %}
+              
+                
+              <div class="card">
+                
+                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">
+
+                  <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->
+                      <div class="profile-name">{{ event.name }}</div>
+                      <div class="profile-username">{{ event.venueName }}</div>
+                      <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
+                    </a>
+              </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+    {% endblock %}
