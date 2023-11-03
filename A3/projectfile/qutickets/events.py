@@ -1,3 +1,7 @@
+from flask import Blueprint, flash, render_template, request, redirect, url_for
+from .models import Event, Comment
+from .forms import EventForm, CommentForm
+from . import db
 import os
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
@@ -40,6 +44,7 @@ def create():
     # commit to the database
     db.session.commit()
     print('Successfully created new event', 'success')
+    flash('Succesfully created event')
     #Always end with redirect when form is valid
     return redirect(url_for('event.create'))
   return render_template('events/createEvent.html', form=form)
