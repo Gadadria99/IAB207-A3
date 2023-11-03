@@ -1,9 +1,12 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from .models import Event, Comment
-from .forms import EventForm, CommentForm
-from . import db
 import os
+
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
+
+from . import db
+from .forms import CommentForm, EventForm
+from .models import Bookings, Comment, Event
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
 
@@ -73,4 +76,41 @@ def comment(id):
       print('Your comment has been added', 'success') 
     # using redirect sends a GET request to destination.show
     return redirect(url_for('event.show', id=id))
-    
+
+@eventbp.route('/<id>/purchase', methods=['POST'])
+@login_required
+def purchase(id):
+    event = db.session.query(Event).get(id)
+    num_tickets = int(request.form['ticketselect'])
+
+    # Check if there are enough tickets available
+    if num_tickets > event.ticketsAvailable:
+        flash('Not enough seats available', 'danger')
+        return redirect(url_for('event.show', id=id))
+
+    # Process the purchase logic here
+    # Update the database to reflect the purchased tickets and charge the user.
+
+    ticket_purchase = Bookings(user_id=current_user.id, event_id=event.id, num_tickets=num_tickets)
+
+    # Update the number of available tickets for the event
+    event.ticketsAvailable -= num_tickets
+
+    # Commit the changes to the database
+    db.session.add(ticket_purchase)
+    db.session.commit()
+
+    flash('Tickets purchased successfully', 'success')
+
+    return redirect(url_for('event.show', id=id))
+
+@eventbp.route('/profile')
+@login_required
+def profile():
+    try:
+        user_booked_events = current_user.bookings.all()
+    except AttributeError:
+        user_booked_events = []
+
+    return render_template('profilePage.html', user=current_user, booked_events=user_booked_events)
+
