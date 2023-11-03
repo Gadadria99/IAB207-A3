@@ -103,3 +103,14 @@ def purchase(id):
     flash('Tickets purchased successfully', 'success')
 
     return redirect(url_for('event.show', id=id))
+
+@eventbp.route('/profile')
+@login_required
+def profile():
+    try:
+        user_booked_events = current_user.bookings.all()
+    except AttributeError:
+        user_booked_events = []
+
+    return render_template('profilePage.html', user=current_user, booked_events=user_booked_events)
+

@@ -9,89 +9,56 @@
   </head>
   <body>
     <div class="container-fluid">
-    <header>
-        
-            <!-- Bootstrap Navbar -->
+      <header>
+        <!-- Bootstrap Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent custom-navbar">
           <div class="container">
-             <!-- Logo on the right -->
-             <a class="navbar-logo" href="index.html">
-                 <img src="static/img/QUtickets logo V1.png" alt="Logo" height="80">
-              </a>
-          
-        
-              <div class="d-flex">
-                 <a class="btn btn-login btn-primary mr-2" href="Createeventpage.html">Create Event</a>
-                 <img class="img-fluid" src="static/img/phunk.png" style="width:60px; height:60px; border-radius: 4em;">
-             </div>
+            <a class="navbar-logo" href="/">
+              <img src="static/img/QUtickets logo V1.png" alt="Logo" height="80">
+            </a>
+            <div class="d-flex">
+              {% if current_user.is_authenticated %}
+                <a class="btn btn-register btn-secondary" href="{{ url_for('event.profile') }}">Welcome {{ current_user.name }}</a>
+                <a class="btn btn-register btn-secondary" href="{{ url_for('auth.logout') }}">Log Out</a>
+              {% else %}
+                <a class="btn btn-register btn-secondary" href="{{ url_for('auth.register') }}">Register</a>
+                <a class="btn btn-register btn-secondary" href="{{ url_for('auth.login') }}">Log In</a>
+              {% endif %}
+              <a class="btn btn-register btn-secondary" href="{{ url_for('event.create') }}">Create Event</a>
+            </div>
           </div>
-      </nav>
-    </header>
-    <main>
+        </nav>
+      </header>
+      <main>
         <div class="col event-container-profile">
           <div class="row" style="max-width: fit-content;">
-
             <div class="col-md-12 custom-col-2">
-              <h2>booking history</h2>
-                <div class="card">
-                    <img src="static/img/unnamed.jpg" class="img img-responsive" alt="Event 1">
-                    <a href="event page.html">
-                        <div class="profile-name">The Cat Empire</div>
-                        <div class="profile-username">@ThePalaisTheatre</div>
-                        <div class="profile-date">12th-13th December</div>
-                      </a>
-                </div>
-                <h4>BOOKING ID: 12345</h4>
-                <H5>event booked @ 15:46 on 13/9/23</H5>
-                <div class="card">
-                  <img src="static/img/delta.jpg" class="img img-responsive" alt="Event 4">
-      
-                  <a href="event page.html">
-                      <div class="profile-name">DELTA GOODREM</div>
-                      <div class="profile-username">@hamerhall</div>
-                      <div class="profile-date">29th September</div>
+              <h2>Booking History</h2>
+              {% if booked_events %}
+                <!-- Iterate through booked events using Jinja2 loop -->
+                {% for booking in booked_events %}
+                  <div class="card">
+                    <img src="{{ booking.event.eventImage }}" class="img img-responsive" alt="{{ booking.event.name }}">
+                    <a href="{{ url_for('event.show', id=booking.event.id) }}">
+                      <div class="profile-name">{{ booking.event.name }}</div>
+                      <div class="profile-username">{{ booking.event.venueName }}</div>
+                      <div class="profile-date">{{ booking.event.eventTime.strftime('%dth %B %Y') }}</div>
                     </a>
-              </div>
-              <h4>BOOKING ID: 12345</h4>
-              <H5>event booked @ 15:46 on 13/9/23</H5>
-              <div class="card">
-                <img src="static/img/defleppard.jpg" class="img img-responsive" alt="Event 6">
-    
-                <a href="event page.html">
-                    <div class="profile-name">DEF LEPPARD x MOTLEY CRUE</div>
-                    <div class="profile-username">@marvelstadium</div>
-                    <div class="profile-date">14th November</div>
-                  </a>
+                  </div>
+                  <h4>BOOKING ID: {{ booking.id }}</h4>
+                  <h5>Event booked @ {{ booking.purchase_date.strftime('%H:%M on %d/%m/%y') }}</h5>
+                {% endfor %}
+                <!-- End of loop -->
+              {% else %}
+                <!-- Display a message when there are no bookings -->
+                <p>No bookings yet. <a href="{{ url_for('event.index') }}">Browse events</a> to make a booking.</p>
+              {% endif %}
             </div>
-            <h4>BOOKING ID: 12345</h4>
-            <H5>event booked @ 15:46 on 13/9/23</H5>
-            <div class="card">
-              <img src="static/img/boot.webp" class="img img-responsive" alt="Event 13">
-
-              <a href="event page.html">
-                  <div class="profile-name">BOOT SEQUENCE NIGHTCLUB</div>
-                  <div class="profile-username">@thesirus</div>
-                  <div class="profile-date">29th September</div>
-                </a>
-          </div>
-          <h4>BOOKING ID: 12345</h4>
-          <H5>event booked @ 15:46 on 13/9/23</H5>
-
-
-
-
           </div>
         </div>
-
-
-
-
-
-    </main>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    </div> 
-    
+      </main>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </div>
     <footer class="footer">(C) Adrian Gadaleta, 2023. all rights reserved.</footer>
   </body>
 </html>
