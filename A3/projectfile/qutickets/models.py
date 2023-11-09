@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from flask_login import UserMixin
 
 from . import db
@@ -36,7 +35,6 @@ class Event(db.Model):
     eventImage = db.Column(db.String(400))
     ticketPrice = db.Column(db.Float())
     location = db.Column(db.String(120))
-    # category = db.Column(db.Enum(EnumCat))
     category = db.Column(db.String(400))
     status = db.Column(db.String(400))
     eventTime = db.Column(db.DateTime())

@@ -94,15 +94,14 @@ def cancelEvent(id):
     #return render_template('events/edit.html', event=event, form=eform)
     return redirect(url_for('event.show', id=id))
     
-# def eventTimeOut():
-#     current_time = datetime.now()
-#     events = db.session.query(Event).all()
+def eventTimeOut():
+    current_time = datetime.now()
+    events = db.session.query(Event).all()
 
-#     for event in events:
-#         if event.eventTime < current_time and event.status not in ('cancelled', 'Sold Out'):
-#             event.status = 'inactive'
-#             db.session.commit()
-
+    for event in events:
+        if event.eventTime < current_time and event.status not in ('cancelled'):
+            event.status = 'inactive'
+            db.session.commit()
 
 
 def check_upload_file(form):
@@ -165,7 +164,7 @@ def purchase(id):
 
     flash('Tickets purchased successfully', 'success')
 
-    return redirect(url_for('event.show', id=id))
+    return redirect(url_for('event.profile', id=id))
 
 
 

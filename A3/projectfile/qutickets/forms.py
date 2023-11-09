@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, SelectField, DateTimeField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, SelectField, DateTimeField, DateTimeLocalField
 from wtforms.validators import InputRequired, Email, EqualTo
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 
@@ -18,7 +18,8 @@ class EventForm(FlaskForm):
   location = StringField('Event Address', validators=[InputRequired()])
   category = SelectField(u'Event Category', choices=[('local', 'Local'), ('imported', 'Imported'), ('emerging', 'Emerging'), ('impromptu', 'Impromptu')])
   status = SelectField(u'Event Status', choices=[('open', 'Open'), ('inactive', 'Inactive'), ('sold out', 'Sold Out'), ('cancelled', 'Cancelled')])
-  eventTime = DateTimeField('Event Date & Time in YYYY-MM-DD HH:MM:SS')
+  eventTime = DateTimeField('Event Date & Time in YYYY-MM-DD HH:MM')
+  #eventTime = DateTimeLocalField('Event Date & Time', format='%Y-%m-%dT%H:%M')
   venueName = StringField('Venue Name', validators=[InputRequired()])
   venueType = StringField('Venue Type', validators=[InputRequired()])
   ticketsAvailable = IntegerField('No. of Tickets Available', validators = [InputRequired()])
