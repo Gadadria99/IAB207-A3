@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     # relation to call user.comments and comment.created_by
     comments = db.relationship('Comment', backref='user')
     # Define a many-to-many relationship for booked events
+    bookings = db.relationship('Bookings', backref='user', lazy='dynamic')
     # string print method
     def __repr__(self):
         return f"Name: {self.name}"
@@ -35,13 +36,14 @@ class Event(db.Model):
     location = db.Column(db.String(120))
     # category = db.Column(db.Enum(EnumCat))
     category = db.Column(db.String(400))
+    status = db.Column(db.String(400))
     eventTime = db.Column(db.DateTime())
     venueName = db.Column(db.String(120))
     venueType = db.Column(db.String(120))
     ticketsAvailable = db.Column(db.Integer())
 
     # Define a many-to-many relationship for users who have booked this event
-    bookings = db.relationship('Bookings', backref='user', lazy='dynamic')
+    bookings = db.relationship('Bookings', backref='event', lazy='dynamic')
     
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
@@ -65,13 +67,14 @@ class Comment(db.Model):
         return f"Comment: {self.text}"
     
 
-class Bookings(db.Model):
+class Bookings(db.Model, UserMixin):
     __tablename__ = 'bookings'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
     num_tickets = db.Column(db.Integer, nullable=False)
     purchase_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
 
     def __init__(self, user_id, event_id, num_tickets):
         self.user_id = user_id

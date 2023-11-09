@@ -43,7 +43,7 @@
             
             <h2>local</h2>
             {% for event in events %}
-              {% if event.category == 'one'  %}
+              {% if event.category == 'local'  %}
               
                 
               <div class="card">
@@ -54,6 +54,7 @@
                       <div class="profile-name">{{ event.name }}</div>
                       <div class="profile-username">{{ event.venueName }}</div>
                       <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
+                      <div class="status">{{ event.status }}</div>
                     </a>
               </div>
               {% endif %}
@@ -65,7 +66,7 @@
             
             <h2>Imported</h2>
             {% for event in events %}
-              {% if event.category == 'two'  %}
+              {% if event.category == 'imported'  %}
               
                 
               <div class="card">
@@ -76,6 +77,7 @@
                       <div class="profile-name">{{ event.name }}</div>
                       <div class="profile-username">{{ event.venueName }}</div>
                       <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
+                      <div class="status">{{ event.status }}</div>
                     </a>
               </div>
               {% endif %}
@@ -86,7 +88,7 @@
             
             <h2>Emerging</h2>
             {% for event in events %}
-              {% if event.category == 'three'  %}
+              {% if event.category == 'emerging'  %}
               
                 
               <div class="card">
@@ -97,6 +99,7 @@
                       <div class="profile-name">{{ event.name }}</div>
                       <div class="profile-username">{{ event.venueName }}</div>
                       <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
+                      <div class="status">{{ event.status }}</div>
                     </a>
               </div>
               {% endif %}
@@ -107,7 +110,7 @@
             
             <h2>Impromptu</h2>
             {% for event in events %}
-              {% if event.category == 'four'  %}
+              {% if event.category == 'impromptu'  %}
               
                 
               <div class="card">
@@ -118,6 +121,8 @@
                       <div class="profile-name">{{ event.name }}</div>
                       <div class="profile-username">{{ event.venueName }}</div>
                       <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
+                      <div class="status">{{ event.status }}</div>
+                      
                     </a>
               </div>
               {% endif %}

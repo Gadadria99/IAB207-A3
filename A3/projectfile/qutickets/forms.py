@@ -17,6 +17,7 @@ class EventForm(FlaskForm):
   ticketPrice = IntegerField('Ticket Price', validators = [InputRequired()])
   location = StringField('Event Address', validators=[InputRequired()])
   category = SelectField(u'Event Category', choices=[('local', 'Local'), ('imported', 'Imported'), ('emerging', 'Emerging'), ('impromptu', 'Impromptu')])
+  status = SelectField(u'Event Category', choices=[('open', 'Open'), ('inactive', 'Inactive'), ('sold out', 'Sold Out'), ('cancelled', 'Cancelled')])
   eventTime = DateTimeField('Event Date & Time in YYYY-MM-DD HH:MM:SS')
   venueName = StringField('Venue Name', validators=[InputRequired()])
   venueType = StringField('Venue Type', validators=[InputRequired()])
