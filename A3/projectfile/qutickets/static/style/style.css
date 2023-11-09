@@ -11,8 +11,10 @@ h1 {
  
 
  .custom-navbar {
-   background-color: aquamarine; /* Change the background color to your desired color */
+   background-color: aquamarine;
 }
+
+
 
 /* Center the logo */
 .navbar-brand {
@@ -141,6 +143,15 @@ h1 {
 .card .profile-date {
    position: absolute;
    bottom: 35px;
+   left: 30px;
+   color: #FFF;
+   font-size: 13px;
+   transition: all linear 0.25s;
+}
+
+.card .status {
+   position: absolute;
+   bottom: 20px;
    left: 30px;
    color: #FFF;
    font-size: 13px;
@@ -419,3 +430,22 @@ h2 {
    height: 40px;
    padding: 10px;
  }
+
+
+   /* Custom CSS to center the form and create a gap */
+   .centered-form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    /* Style the "New user?" link */
+    .new-user-link {
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      font-size: 16px;
+      padding-left: 50%;
+  
+    }

@@ -32,10 +32,14 @@
                   <input type="number" id="ticketselect" name="ticketselect" aria-describedby="ticketselectHelpBlock" required="required" class="form-control">
                   <span id="ticketselectHelpBlock" class="form-text text-muted">Please enter the desired number of tickets</span>
                 </div>
+                {% if event.status == 'open' %}
                 <div class="form-group">
                   <button name="submit" type="submit" class="btn btn-register">PLACE BOOKING</button>
               </div>
               </form>
+              {% else %}
+              <div class="status-not-open">Event Status: {{event.status}}</div>
+              {% endif %}
               <p>
                 {{event.description}} 
               </p>

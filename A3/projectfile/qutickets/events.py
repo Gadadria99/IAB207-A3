@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, render_template, request, redirect, url_for
-from .models import Event, Comment
+from .models import Event, Comment, User
 from .forms import EventForm, CommentForm
 from . import db
 import os
@@ -36,7 +36,7 @@ def create():
     db_file_path = check_upload_file(form)
     event = Event(name=form.name.data,description=form.description.data, 
     eventImage = db_file_path,ticketPrice=form.ticketPrice.data,
-    location=form.location.data, category=form.category.data, 
+    location=form.location.data, category=form.category.data, status=form.status.data, 
     eventTime=form.eventTime.data, venueType=form.venueType.data, venueName=form.venueName.data,
     ticketsAvailable=form.ticketsAvailable.data)
     # add the object to the db session
@@ -111,13 +111,20 @@ def purchase(id):
 
     return redirect(url_for('event.show', id=id))
 
+
+
+
+
 @eventbp.route('/profile')
 @login_required
 def profile():
-    try:
-        user_booked_events = current_user.bookings.all()
-    except AttributeError:
-        user_booked_events = []
+    
+    #try:
+    user_booked_events = current_user.bookings.all()
+    #except AttributeError:
+        #user_booked_events = []
+
+    #print("User Booked Events:", user_booked_events)
 
     return render_template('profilePage.html', user=current_user, booked_events=user_booked_events)
 
