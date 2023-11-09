@@ -40,68 +40,52 @@
           
           
           <div class="col-md-3">
-            
             <h2>local</h2>
             {% for event in events %}
-              {% if event.category == 'local'  %}
-              
-                
-              <div class="card">
-                
-                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">
-
-                  <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->
+              {% if event.category == 'local'  %}             
+              <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->  
+                <div class="card">                
+                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">                 
                       <div class="profile-name">{{ event.name }}</div>
                       <div class="profile-username">{{ event.venueName }}</div>
                       <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
-                      <div class="status">{{ event.status }}</div>
-                    </a>
-              </div>
+                      <div class="status">{{ event.status }}</div>                    
+                </div>
+              </a>
               {% endif %}
             {% endfor %}
-          </div>
-          
+          </div>         
           <!-- Column 2 -->
-          <div class="col-md-3">
-            
+          <div class="col-md-3">            
             <h2>Imported</h2>
             {% for event in events %}
-              {% if event.category == 'imported'  %}
-              
-                
-              <div class="card">
-                
-                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">
-
-                  <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->
+              {% if event.category == 'imported'  %}              
+              <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->  
+                <div class="card">                
+                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">                  
                       <div class="profile-name">{{ event.name }}</div>
                       <div class="profile-username">{{ event.venueName }}</div>
                       <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
-                      <div class="status">{{ event.status }}</div>
-                    </a>
-              </div>
+                      <div class="status">{{ event.status }}</div>                    
+                </div>
+              </a>
               {% endif %}
             {% endfor %}
           </div>
           <!-- Column 3 -->
-          <div class="col-md-3">
-            
+          <div class="col-md-3">            
             <h2>Emerging</h2>
             {% for event in events %}
-              {% if event.category == 'emerging'  %}
-              
-                
-              <div class="card">
-                
-                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">
-
-                  <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->
+              {% if event.category == 'emerging'  %}              
+              <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route --> 
+              <div class="card">                
+                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">                                     
                       <div class="profile-name">{{ event.name }}</div>
                       <div class="profile-username">{{ event.venueName }}</div>
                       <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
-                      <div class="status">{{ event.status }}</div>
-                    </a>
+                      <div class="status">{{ event.status }}</div>                        
               </div>
+            </a>
               {% endif %}
             {% endfor %}
           </div>
@@ -112,19 +96,15 @@
             {% for event in events %}
               {% if event.category == 'impromptu'  %}
               
-                
-              <div class="card">
-                
-                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">
-
-                  <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route -->
+              <a href="{{ url_for('event.show', id=event.id) }}"> <!-- Add link to event.show route --> 
+                <div class="card">                 
+                  <img src="{{ event.eventImage }}" class="img img-responsive" alt="{{ event.name }}">                  
                       <div class="profile-name">{{ event.name }}</div>
                       <div class="profile-username">{{ event.venueName }}</div>
                       <div class="profile-date">{{ event.eventTime.strftime('%d %b, %Y') }}</div>
-                      <div class="status">{{ event.status }}</div>
-                      
-                    </a>
-              </div>
+                      <div class="status">{{ event.status }}</div>   
+                </div>
+              </a>
               {% endif %}
             {% endfor %}
           </div>

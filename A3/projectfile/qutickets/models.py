@@ -22,6 +22,8 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', backref='user')
     # Define a many-to-many relationship for booked events
     bookings = db.relationship('Bookings', backref='user', lazy='dynamic')
+    #backref events to user
+    
     # string print method
     def __repr__(self):
         return f"Name: {self.name}"
@@ -41,17 +43,18 @@ class Event(db.Model):
     venueName = db.Column(db.String(120))
     venueType = db.Column(db.String(120))
     ticketsAvailable = db.Column(db.Integer())
-
     # Define a many-to-many relationship for users who have booked this event
     bookings = db.relationship('Bookings', backref='event', lazy='dynamic')
-    
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
     comments = db.relationship('Comment', backref='event')
-	
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+   
     # string print method
     def __repr__(self):
         return f"Name: {self.name}"
+    
+
 
 class Comment(db.Model):
     __tablename__ = 'comments'

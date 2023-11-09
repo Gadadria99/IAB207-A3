@@ -17,12 +17,33 @@ class EventForm(FlaskForm):
   ticketPrice = IntegerField('Ticket Price', validators = [InputRequired()])
   location = StringField('Event Address', validators=[InputRequired()])
   category = SelectField(u'Event Category', choices=[('local', 'Local'), ('imported', 'Imported'), ('emerging', 'Emerging'), ('impromptu', 'Impromptu')])
-  status = SelectField(u'Event Category', choices=[('open', 'Open'), ('inactive', 'Inactive'), ('sold out', 'Sold Out'), ('cancelled', 'Cancelled')])
+  status = SelectField(u'Event Status', choices=[('open', 'Open'), ('inactive', 'Inactive'), ('sold out', 'Sold Out'), ('cancelled', 'Cancelled')])
   eventTime = DateTimeField('Event Date & Time in YYYY-MM-DD HH:MM:SS')
   venueName = StringField('Venue Name', validators=[InputRequired()])
   venueType = StringField('Venue Type', validators=[InputRequired()])
   ticketsAvailable = IntegerField('No. of Tickets Available', validators = [InputRequired()])
   submit = SubmitField("Create Event")
+
+class EditForm(FlaskForm):
+  name = StringField('Event Name', validators=[InputRequired()])
+  # adding two validators, one to ensure input is entered and other to check if the 
+  #description meets the length requirements
+  description = TextAreaField('Description', validators = [InputRequired()])
+  eventImage = FileField('Event Poster/ Image', validators=[
+    FileRequired(message = 'Image cannot be empty'),
+    FileAllowed(ALLOWED_FILE, message='Only supports png, jpg, JPG, PNG')])
+  ticketPrice = IntegerField('Ticket Price', validators = [InputRequired()])
+  location = StringField('Event Address', validators=[InputRequired()])
+  category = SelectField(u'Event Category', choices=[('local', 'Local'), ('imported', 'Imported'), ('emerging', 'Emerging'), ('impromptu', 'Impromptu')])
+  eventTime = DateTimeField('Event Date & Time in YYYY-MM-DD HH:MM:SS')
+  venueName = StringField('Venue Name', validators=[InputRequired()])
+  venueType = StringField('Venue Type', validators=[InputRequired()])
+  ticketsAvailable = IntegerField('No. of Tickets Available', validators = [InputRequired()])
+  submit = SubmitField("Update Event")
+
+
+
+
   
 #User login
 class LoginForm(FlaskForm):

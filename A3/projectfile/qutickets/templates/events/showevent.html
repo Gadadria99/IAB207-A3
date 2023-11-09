@@ -8,11 +8,16 @@
         <div class="col event-container">
           <div class="row mt-3">
           <div class="col-md-2 event-info">
-            <h3>{{event.name}}</h3>
-
-            <h5 style="color:crimson;">X Tickets Left!</h5>
+            {% if event.user_id == current_user.id %}
+            <a href="{{ url_for('event.editEvent', id=event.id) }}" class="btn btn-register">Update Event</a>
+            <a href="{{ url_for('event.cancelEvent', id=event.id) }}" class="btn btn-register">Cancel Event</a>
+            {%endif%}
+            <h3>{{event.name}}</h3>       
+            <h5 style="color:crimson;">{{event.ticketsAvailable}} Tickets Left!</h5>
             <h6>{{event.eventTime}}</h6>
+            {% if event.status == 'open' %}
             <h5 style="font-variant:small-caps; color:crimson; font-weight: bolder; background-color: rgba(29, 228, 152, 0.678); border-radius: 5px; padding:10px;">book now!</h4>
+              {%endif%}
             <h3>{{event.venueName}}</h3>
             <h6>{{event.venueType}}</h6>
             <h4 style="font-variant:small-caps; color:aliceblue; font-weight: bolder; background-color: blueviolet; border-radius: 5px; padding:10px;">{{event.category}}</h4>

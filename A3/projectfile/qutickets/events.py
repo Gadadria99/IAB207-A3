@@ -1,9 +1,9 @@
 from flask import Blueprint, flash, render_template, request, redirect, url_for
 from .models import Event, Comment, User
-from .forms import EventForm, CommentForm
+from .forms import EventForm, CommentForm, EditForm
 from . import db
 import os
-
+from datetime import datetime
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
@@ -13,6 +13,8 @@ from .forms import CommentForm, EventForm
 from .models import Bookings, Comment, Event
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
+current_time = datetime.now()
+
 
 @eventbp.route('/')
 def index():
@@ -38,7 +40,7 @@ def create():
     eventImage = db_file_path,ticketPrice=form.ticketPrice.data,
     location=form.location.data, category=form.category.data, status=form.status.data, 
     eventTime=form.eventTime.data, venueType=form.venueType.data, venueName=form.venueName.data,
-    ticketsAvailable=form.ticketsAvailable.data)
+    ticketsAvailable=form.ticketsAvailable.data, user_id=current_user.id)
     # add the object to the db session
     db.session.add(event)
     # commit to the database
@@ -48,6 +50,60 @@ def create():
     #Always end with redirect when form is valid
     return redirect(url_for('event.create'))
   return render_template('events/createEvent.html', form=form)
+
+
+@eventbp.route('/<id>/edit', methods=['GET', 'POST'])
+def editEvent(id):
+    event = db.session.scalar(db.select(Event).where(Event.id==id))
+    
+    eform = EditForm(obj=event)
+    if eform.validate_on_submit():
+    #call the function that checks and returns image
+        db_file_path = check_upload_file(eform)
+        event.name=eform.name.data
+        event.description=eform.description.data 
+        event.eventImage = db_file_path 
+        event.ticketPrice=eform.ticketPrice.data
+        event.location=eform.location.data
+        event.category=eform.category.data 
+        event.eventTime=eform.eventTime.data
+        event.venueType=eform.venueType.data
+        event.venueName=eform.venueName.data
+        event.ticketsAvailable=eform.ticketsAvailable.data
+        #entry = event.query.get_or_404()
+        
+        db.session.commit()
+        print('Successfully updated event', 'success')
+        flash('Succesfully updated event')
+    return render_template('events/edit.html', event=event, form=eform)
+    
+
+
+
+@eventbp.route('/<id>/cancel', methods=['GET', 'POST'])
+def cancelEvent(id):
+    event = db.session.scalar(db.select(Event).where(Event.id==id))
+    if(event.status != 'cancelled'):
+        event.status = 'cancelled'
+        db.session.commit()
+        print('Successfully updated event', 'success')
+        flash('Succesfully updated event')
+    else:
+        print('Event has already been cancelled', 'success')
+        flash('Event is already cancelled')
+    #return render_template('events/edit.html', event=event, form=eform)
+    return redirect(url_for('event.show', id=id))
+    
+# def eventTimeOut():
+#     current_time = datetime.now()
+#     events = db.session.query(Event).all()
+
+#     for event in events:
+#         if event.eventTime < current_time and event.status not in ('cancelled', 'Sold Out'):
+#             event.status = 'inactive'
+#             db.session.commit()
+
+
 
 def check_upload_file(form):
    #get file data from form
