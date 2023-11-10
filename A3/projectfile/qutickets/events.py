@@ -80,16 +80,12 @@ def editEvent(id):
         event.eventTime=eform.eventTime.data
         event.venueType=eform.venueType.data
         event.venueName=eform.venueName.data
-        event.ticketsAvailable=eform.ticketsAvailable.data
-        #entry = event.query.get_or_404()
-        
+        event.ticketsAvailable=eform.ticketsAvailable.data       
         db.session.commit()
         print('Successfully updated event', 'success')
         flash('Succesfully updated event')
     return render_template('events/edit.html', event=event, form=eform)
     
-
-
 
 @eventbp.route('/<id>/cancel', methods=['GET', 'POST'])
 def cancelEvent(id):
@@ -102,13 +98,11 @@ def cancelEvent(id):
     else:
         print('Event has already been cancelled', 'success')
         flash('Event is already cancelled')
-    #return render_template('events/edit.html', event=event, form=eform)
     return redirect(url_for('event.show', id=id))
     
 def eventTimeOut():
     current_time = datetime.now()
     events = db.session.query(Event).all()
-
     for event in events:
         if event.eventTime < current_time and event.status not in ('cancelled'):
             event.status = 'inactive'
@@ -134,13 +128,13 @@ def check_upload_file(form):
 @login_required
 def comment(id):  
     form = CommentForm()  
-    #get the destination object associated to the page and the comment
+    #get the event object associated to the page and the comment
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     if form.validate_on_submit():  
-      # read the comment from the form, associate the Comment's destination field
-      # with the destination object from the above DB query
+      # read the comment from the form, associate the Comment's event field
+      # with the event object from the above DB query
       comment = Comment(text=form.text.data, event=event, user_id=current_user.id, user_name=current_user.name) 
-      #here the back-referencing works - comment.destination is set
+      #here the back-referencing works - comment.event is set
       # and the link is created
       db.session.add(comment) 
       db.session.commit() 
@@ -155,44 +149,25 @@ def comment(id):
 def purchase(id):
     event = db.session.query(Event).get(id)
     num_tickets = int(request.form['ticketselect'])
-
     # Check if there are enough tickets available
     if num_tickets > event.ticketsAvailable:
-        flash('Not enough seats available', 'danger')
-        
+        flash('Not enough seats available', 'danger')       
         return redirect(url_for('event.show', id=id))
-
     # Process the purchase logic here
     # Update the database to reflect the purchased tickets and charge the user.
-
     ticket_purchase = Bookings(user_id=current_user.id, event_id=event.id, num_tickets=num_tickets)
-
     # Update the number of available tickets for the event
     event.ticketsAvailable -= num_tickets
-
     # Commit the changes to the database
     db.session.add(ticket_purchase)
     db.session.commit()
-
     flash('Tickets purchased successfully', 'success')
-
     return redirect(url_for('event.profile', id=id))
-
-
-
-
 
 @eventbp.route('/profile', methods= ["GET", "POST"])
 @login_required
-def profile():
-    
-    #try:
+def profile():       
     user_booked_events = current_user.bookings.all()
-    #except AttributeError:
-        #user_booked_events = []
-
-    #print("User Booked Events:", user_booked_events)
-
     if request.method == 'POST':
         search = request.form["searchBar"]
         tag = "%{}%".format(search)
@@ -203,6 +178,5 @@ def profile():
             .filter(Event.name.like(tag))
             .all()
         )
-
     return render_template('profilePage.html', booked_events=user_booked_events)
 

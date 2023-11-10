@@ -1,4 +1,64 @@
+/*keyframes for animated css dark majiks*/
 
+@keyframes slidefromleft { 0%{
+   transform: translateX(-200%);
+   }
+   60% {
+   transform: translateX(-50%);
+   transform: translateY(69%);
+   }
+   87% {
+   tansform: translateY(90%);
+   }
+   100% {
+   transform: translateX(0);
+   transform: translateY(0);
+   }
+}
+   @keyframes slidefromright { 0%{
+   transform: translateX(200%);
+   }
+   100% {
+   transform: translateX(0);
+   }
+}
+   @keyframes slideup { 0%{
+   transform: translateY(200%);
+   }
+   100% {
+   transform: translateY(0);
+   }
+}
+   @keyframes fadein { 0%{
+   opacity: 0;
+   }
+   100%{
+   opacity:1;
+   }
+}
+   @keyframes bouncy {
+   0% {
+   top:0em
+   }
+   40% {
+   top:0em
+   }
+   43% {
+   top:-0.9em
+   }
+   46% {
+   top:0em
+   }
+   48% {
+   top:-0.4em
+   }
+   50% {
+   top:0em
+   }
+   100% {
+   top:0em;
+   }
+}
 body {
    background-color: #7fffd4;
 }
@@ -47,6 +107,36 @@ h1 {
 }
 
 
+/*index page styling*/
+
+
+.canvas {
+   
+   
+   animation: 2s fadein;
+   border: 3px rgba(0, 0, 255, 0);
+   border-radius:8px;
+   padding:10px;
+   background-color: #21d8aab6;
+   max-width: max-content;
+   margin: 20 auto;
+}         
+   h1, h2, h3, h4 {
+   text-align: center;
+   color:white;
+   font: helvetica;
+}
+.ttop {
+
+   color:#ffffff;
+   font-family: Verdana, sans-serif !important;
+   border-radius:6px;
+   padding:10px;
+   background-color: #1fbcff88;
+   max-width: max-content;
+   margin: 10 auto;
+   animation: 2s ease-in-out slideup;
+}
 #custom-col {
    display:flex;
    justify-content: left;
