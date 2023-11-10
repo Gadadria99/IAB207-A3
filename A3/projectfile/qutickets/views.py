@@ -14,3 +14,4 @@ def index():
         events = db.session.query(Event).filter(Event.name.like(tag)).all()
 
     return render_template('index.html', events=events)
+

@@ -70,9 +70,9 @@ h1 {
 
 .col-md-3 {
    padding:2em;
-   max-height: 450px; /* Set the maximum height of each column */
+   /*max-height: 450px; /* Set the maximum height of each column */
    min-width:300px;
-   overflow-y: auto;
+   /* overflow-y: auto; */
    text-align: center;
 }
 
@@ -305,7 +305,7 @@ h2 {
    padding:4em;
    
    margin:auto;
-   max-height: 100vh; /* Set the maximum height of each column */
+   /*max-height: 100vh; /* Set the maximum height of each column */
    overflow-y: auto;
    text-align: center;
 }

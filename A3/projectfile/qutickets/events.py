@@ -19,13 +19,22 @@ current_time = datetime.now()
 @eventbp.route('/')
 def index():
     events = db.session.query(Event).all()
+    event = db.session.scalar(db.select(Event).where(Event.id==id))
+    if ((event.ticketsAvailable < 1) & (event.status != 'cancelled')):
+        event.status = 'sold out'
+        db.session.commit()
     return render_template('index.html', events=events)
 
 @eventbp.route('/<id>')
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     # create the comment form
-    cform = CommentForm()    
+    cform = CommentForm()  
+        # Check if there are enough tickets available
+    if ((event.ticketsAvailable == 0) & (event.status != 'cancelled')):
+        event.status = 'sold out'
+        db.session.commit()
+        #return redirect(url_for('event.show', id=id))  
     return render_template('events/showevent.html', event=event, form=cform)
 
 @eventbp.route('/createevent', methods=['GET', 'POST'])
@@ -150,6 +159,7 @@ def purchase(id):
     # Check if there are enough tickets available
     if num_tickets > event.ticketsAvailable:
         flash('Not enough seats available', 'danger')
+        
         return redirect(url_for('event.show', id=id))
 
     # Process the purchase logic here
@@ -172,7 +182,7 @@ def purchase(id):
 
 
 
-@eventbp.route('/profile')
+@eventbp.route('/profile', methods= ["GET", "POST"])
 @login_required
 def profile():
     
@@ -183,5 +193,16 @@ def profile():
 
     #print("User Booked Events:", user_booked_events)
 
-    return render_template('profilePage.html', user=current_user, booked_events=user_booked_events)
+    if request.method == 'POST':
+        search = request.form["searchBar"]
+        tag = "%{}%".format(search)
+        #user_booked_events = db.session.query(Event).filter(Event.name.like(tag)).all()
+        user_booked_events = (
+            current_user.bookings
+            .join(Event)  # Assuming you have a relationship between bookings and events
+            .filter(Event.name.like(tag))
+            .all()
+        )
+
+    return render_template('profilePage.html', booked_events=user_booked_events)
 
