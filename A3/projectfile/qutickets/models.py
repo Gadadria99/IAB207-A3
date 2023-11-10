@@ -3,11 +3,7 @@ from flask_login import UserMixin
 
 from . import db
 
-# class EnumCat(enum.Enum):
-#     one = 'Local'
-#     two = 'Imported'
-#     three = 'Emerging'
-#     four = 'Impromptu'
+current_user_loc = 'Reservoir Skatepark, 73 Leamington Street. Reservoir VIC'
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users' # good practice to specify table name

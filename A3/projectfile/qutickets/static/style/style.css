@@ -214,6 +214,15 @@ h2 {
 /* event page styling */
 
 
+#eventAddress{
+   min-height:fit-content;
+   border-radius: 8px;
+   background-color:rgba(179, 255, 255, 0.911);
+   color:rgba(206, 145, 75, 0.911);
+   padding:2em;
+   margin: 2em 2em 0em 2em;
+}
+
 .event-container {
    min-height:fit-content;
    border-radius: 8px;
