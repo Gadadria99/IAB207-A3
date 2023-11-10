@@ -1,29 +1,13 @@
-{% include "base.html" %}
+{% extends "base.html" %}
 {% from "bootstrap5/form.html" import render_form %}
-{% block body %}
-<style>
-  /* Custom CSS to center the form and create a gap */
-  .centered-form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+{% block content %}
 
-  /* Style the "New user?" link */
-  .new-user-link {
-    display: inline-block;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    font-size: 16px;
-    padding-left: 50%;
-
-  }
-</style>
-
+<html>
 <div class="page-header" style="display: flex; justify-content: left; align-items: left; padding-left: 25%; font-size: 20px; padding-top: 10%;">
   <h4>{{heading}}</h4>
 </div>
+
+
 
 <!-- Center the form using custom CSS class -->
 <div class="centered-form-container">
@@ -39,7 +23,7 @@
   </p>
 </div>
 {% endif %}
-{% endblock %}
+
 
 <!-- Flashes any messages to the user -->
 {% with messages = get_flashed_messages() %}
@@ -58,7 +42,8 @@
 </div>
 {% endif %}
 {% endwith %}
-
-<footer class="footer">
+{% endblock %}
+<!-- <footer class="footer">
   (C) IAB207, 2023. all rights reserved.
-</footer>
+</footer> -->
+</html>

@@ -1,3 +1,67 @@
+/*keyframes for animated css dark majiks*/
+
+@keyframes slidefromleft { 0%{
+   transform: translateX(-200%);
+   }
+   60% {
+   transform: translateX(-50%);
+   transform: translateY(69%);
+   }
+   87% {
+   tansform: translateY(90%);
+   }
+   100% {
+   transform: translateX(0);
+   transform: translateY(0);
+   }
+}
+   @keyframes slidefromright { 0%{
+   transform: translateX(200%);
+   }
+   100% {
+   transform: translateX(0);
+   }
+}
+   @keyframes slideup { 0%{
+   transform: translateY(200%);
+   }
+   100% {
+   transform: translateY(0);
+   }
+}
+   @keyframes fadein { 0%{
+   opacity: 0;
+   }
+   100%{
+   opacity:1;
+   }
+}
+   @keyframes bouncy {
+   0% {
+   top:0em
+   }
+   40% {
+   top:0em
+   }
+   43% {
+   top:-0.9em
+   }
+   46% {
+   top:0em
+   }
+   48% {
+   top:-0.4em
+   }
+   50% {
+   top:0em
+   }
+   100% {
+   top:0em;
+   }
+}
+body {
+   background-color: #7fffd4;
+}
 
 h1 {
     color:blueviolet;
@@ -11,8 +75,10 @@ h1 {
  
 
  .custom-navbar {
-   background-color: aquamarine; /* Change the background color to your desired color */
+   background-color: aquamarine;
 }
+
+
 
 /* Center the logo */
 .navbar-brand {
@@ -41,6 +107,36 @@ h1 {
 }
 
 
+/*index page styling*/
+
+
+.canvas {
+   
+   
+   animation: 2s fadein;
+   border: 3px rgba(0, 0, 255, 0);
+   border-radius:8px;
+   padding:10px;
+   background-color: #21d8aab6;
+   max-width: max-content;
+   margin: 20 auto;
+}         
+   h1, h2, h3, h4 {
+   text-align: center;
+   color:white;
+   font: helvetica;
+}
+.ttop {
+
+   color:#ffffff;
+   font-family: Verdana, sans-serif !important;
+   border-radius:6px;
+   padding:10px;
+   background-color: #1fbcff88;
+   max-width: max-content;
+   margin: 10 auto;
+   animation: 2s ease-in-out slideup;
+}
 #custom-col {
    display:flex;
    justify-content: left;
@@ -64,9 +160,9 @@ h1 {
 
 .col-md-3 {
    padding:2em;
-   max-height: 450px; /* Set the maximum height of each column */
+   /*max-height: 450px; /* Set the maximum height of each column */
    min-width:300px;
-   overflow-y: auto;
+   /* overflow-y: auto; */
    text-align: center;
 }
 
@@ -147,6 +243,15 @@ h1 {
    transition: all linear 0.25s;
 }
 
+.card .status {
+   position: absolute;
+   bottom: 20px;
+   left: 30px;
+   color: #FFF;
+   font-size: 13px;
+   transition: all linear 0.25s;
+}
+
 .card .profile-icons .fa {
    margin: 5px;
 }
@@ -198,6 +303,15 @@ h2 {
 
 /* event page styling */
 
+
+#eventAddress{
+   min-height:fit-content;
+   border-radius: 8px;
+   background-color:rgba(179, 255, 255, 0.911);
+   color:rgba(206, 145, 75, 0.911);
+   padding:2em;
+   margin: 2em 2em 0em 2em;
+}
 
 .event-container {
    min-height:fit-content;
@@ -290,7 +404,7 @@ h2 {
    padding:4em;
    
    margin:auto;
-   max-height: 100vh; /* Set the maximum height of each column */
+   /*max-height: 100vh; /* Set the maximum height of each column */
    overflow-y: auto;
    text-align: center;
 }
@@ -419,3 +533,22 @@ h2 {
    height: 40px;
    padding: 10px;
  }
+
+
+   /* Custom CSS to center the form and create a gap */
+   .centered-form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    /* Style the "New user?" link */
+    .new-user-link {
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      font-size: 16px;
+      padding-left: 50%;
+  
+    }

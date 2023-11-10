@@ -8,20 +8,26 @@
         <div class="col event-container">
           <div class="row mt-3">
           <div class="col-md-2 event-info">
-            <h3>{{event.name}}</h3>
-
-            <h5 style="color:crimson;">X Tickets Left!</h5>
-            <h6>{{event.eventTime}}</h6>
+            {% if event.user_id == current_user.id %}
+            <a href="{{ url_for('event.editEvent', id=event.id) }}" class="btn btn-register">Update Event</a>
+            <a href="{{ url_for('event.cancelEvent', id=event.id) }}" class="btn btn-register">Cancel Event</a>
+            {%endif%}
+            <h3>{{event.name}}</h3>       
+            <h5 style="color:crimson;">{{event.ticketsAvailable}} Tickets Left!</h5>
+            <h6>{{event.eventTime.strftime('%d %b, %Y %H:%M')}}</h6>
+            {% if event.status == 'open' %}
             <h5 style="font-variant:small-caps; color:crimson; font-weight: bolder; background-color: rgba(29, 228, 152, 0.678); border-radius: 5px; padding:10px;">book now!</h4>
+              {%endif%}
             <h3>{{event.venueName}}</h3>
             <h6>{{event.venueType}}</h6>
             <h4 style="font-variant:small-caps; color:aliceblue; font-weight: bolder; background-color: blueviolet; border-radius: 5px; padding:10px;">{{event.category}}</h4>
 
             <img class="img-fluid" src="/static/img/pubtrans.png" style="border-radius: 8px; margin-top:15px; margin-bottom:15px;">
+            <div id="eventAddress">{{event.location}}</div>
           </div>
             <div class="col-md-6">
               <img class="img-fluid" src="/{{event.eventImage}}" style="border-radius:8px;">
-              <iframe width="100%" height="200" style="border:0; margin-top:15px; border-radius:8px;" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJc7fJl29o1moRoiA_lctdCbQ&destination=place_id:ChIJ56q4amRo1moR5IjBvOcaIsg&key=AIzaSyATie1u0QbqTpOb1yfKS6tEDPG5ScYlNWg">
+              <iframe width="100%" height="200" style="border:0; margin-top:15px; border-radius:8px;" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/directions?origin=Reservoir+Skatepark,73+Leamington+Street,Reservoir,VIC&destination={{event.location}}&key=AIzaSyATie1u0QbqTpOb1yfKS6tEDPG5ScYlNWg">
               </iframe> 
             </div>
             <div class="col-md-4 event-text-col">
@@ -32,10 +38,15 @@
                   <input type="number" id="ticketselect" name="ticketselect" aria-describedby="ticketselectHelpBlock" required="required" class="form-control">
                   <span id="ticketselectHelpBlock" class="form-text text-muted">Please enter the desired number of tickets</span>
                 </div>
+                {% if event.status == 'open' %}
                 <div class="form-group">
                   <button name="submit" type="submit" class="btn btn-register">PLACE BOOKING</button>
               </div>
-              </form>
+              
+              {% else %}
+              <div class="status-not-open">Event Status: {{event.status}}</div>
+              {% endif %}
+            </form>
               <p>
                 {{event.description}} 
               </p>
@@ -47,14 +58,16 @@
                 <div class="col-md-12">  
                   <h2>Comments</h2>  
                 </div> 
-                <div class="col-md-6">
+                <div class="col-md-12">
+                  
                   {{render_form(form, "/events/{0}/comment".format(event.id))}}
+                
                 </div> 
               </div>  
               {% for comment in event.comments %}
               <div class="row border-bottom">  
                 <div class="col-md-12">  
-                  <b>{{comment.user}} <span class="ml-2 text-muted">{{comment.created_at}}</span></b>  
+                  <b><b style="font-size: 18px;">{{comment.user_name}}</b> left a comment <span class="ml-2 text-muted"> {{ comment.created_at.strftime('%d %b, %Y %H:%M') }}</span></b>  
                   <p>{{comment.text}}</p>  
                 </div>  
               </div>  

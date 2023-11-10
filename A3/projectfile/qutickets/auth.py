@@ -4,39 +4,11 @@ from .models import User
 from .forms import LoginForm,RegisterForm
 from flask_login import login_user, login_required,logout_user
 from . import db
+import re
 
 # Create a blueprint - make sure all BPs have unique names
 auth_bp = Blueprint('auth', __name__)
 
-# this is the hint for a login function
-# @auth_bp.route('/login', methods=['GET', 'POST'])
-# def authenticate(): #view function
-#     login_form = LoginForm()
-#     error=None
-#     if(login_form.validate_on_submit()==True):
-#         user_name = login_form.user_name.data
-#         password = login_form.password.data
-#         u1 = User.query.filter_by(name=user_name).first()
-#         if u1 is None:
-#             error='Incorrect user name'
-#         elif not check_password_hash(u1.password_hash, password): # takes the hash and password
-#             error='Incorrect password'
-#         if error is None:
-#             login_user(u1)
-#             nextp = request.args.get('next') #this gives the url from where the login page was accessed
-#             print(nextp)
-#             if next is None or not nextp.startswith('/'):
-#                 return redirect(url_for('index'))
-#             return redirect(nextp)
-#         else:
-#             flash(error)
-#     return render_template('user.html', form=login_form, heading='Login')
-
-
-
-
-
-#Basic test login route
 
 @auth_bp.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -72,6 +44,8 @@ def register():
             uname = register.user_name.data
             pwd = register.password.data
             email = register.email_id.data
+            contactNo = register.contactNo.data
+            address=register.address.data
             #check if a user exists
             user = db.session.scalar(db.select(User).where(User.name==uname))
             if user:#this returns true when user is not None
@@ -80,10 +54,10 @@ def register():
             # don't store the password in plaintext!
             pwd_hash = generate_password_hash(pwd)
             #create a new User model object
-            new_user = User(name=uname, password_hash=pwd_hash, emailid=email)
+            new_user = User(name=uname, password_hash=pwd_hash, emailid=email, contactNo=contactNo, address=address)
             db.session.add(new_user)
             db.session.commit()
-            flash('You logged in successfully')
+            flash('You registered successfully')
             #commit to the database and redirect to HTML page
             return redirect(url_for('main.index'))
     #the else is called when the HTTP request calling this page is a GET
@@ -95,4 +69,5 @@ def register():
 @login_required
 def logout():
     logout_user()
+    flash('You logged out successfully')
     return redirect(url_for('main.index'))

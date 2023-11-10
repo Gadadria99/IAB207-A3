@@ -1,52 +1,46 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>QUtickets</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="static/style/style.css">
-  </head>
-  <body>
-    <div class="container-fluid">
-      <header>
-        <!-- Bootstrap Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent custom-navbar">
-          <div class="container">
-            <a class="navbar-logo" href="/">
-              <img src="static/img/QUtickets logo V1.png" alt="Logo" height="80">
-            </a>
-            <div class="d-flex">
-              {% if current_user.is_authenticated %}
-                <a class="btn btn-register btn-secondary" href="{{ url_for('event.profile') }}">Welcome {{ current_user.name }}</a>
-                <a class="btn btn-register btn-secondary" href="{{ url_for('auth.logout') }}">Log Out</a>
-              {% else %}
-                <a class="btn btn-register btn-secondary" href="{{ url_for('auth.register') }}">Register</a>
-                <a class="btn btn-register btn-secondary" href="{{ url_for('auth.login') }}">Log In</a>
-              {% endif %}
-              <a class="btn btn-register btn-secondary" href="{{ url_for('event.create') }}">Create Event</a>
-            </div>
-          </div>
-        </nav>
-      </header>
+{% extends 'base.html' %}
+
+
+{% block content %}
+
       <main>
         <div class="col event-container-profile">
           <div class="row" style="max-width: fit-content;">
             <div class="col-md-12 custom-col-2">
-              <h2>Booking History</h2>
-              {% if booked_events %}
+              <h2>Your Bookings</h2> 
+
+
+
+
+              <div class col-md-3> 
+                <div class="col" id="profilediv" div id="custom-col-2">
+                  <form action = "" class= "form_search col-md-12" role="search" method = "POST">
+                    <input class= "searchInp" type="search" id="searchBar" name="searchBar"
+                    placeholder="Discover"
+                    aria-label="Search through site content">
+                    <button class = "searchbtn">
+                      <svg class= "svgSearch" viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg>
+                    </button>
+                      </form>
+  
+              {% if booked_events != 0 %}
                 <!-- Iterate through booked events using Jinja2 loop -->
+                
                 {% for booking in booked_events %}
                   <div class="card">
-                    <img src="{{ booking.event.eventImage }}" class="img img-responsive" alt="{{ booking.event.name }}">
+                    <img src="/{{ booking.event.eventImage }}" class="img img-responsive" alt="{{ booking.event.name }}">
                     <a href="{{ url_for('event.show', id=booking.event.id) }}">
                       <div class="profile-name">{{ booking.event.name }}</div>
                       <div class="profile-username">{{ booking.event.venueName }}</div>
                       <div class="profile-date">{{ booking.event.eventTime.strftime('%dth %B %Y') }}</div>
+                      <div class="status">{{ booking.event.status }}</div>
+                      
                     </a>
                   </div>
                   <h4>BOOKING ID: {{ booking.id }}</h4>
+                  <h3>No. of tickets booked: {{ booking.num_tickets }}</h3>
                   <h5>Event booked @ {{ booking.purchase_date.strftime('%H:%M on %d/%m/%y') }}</h5>
+                  
                 {% endfor %}
                 <!-- End of loop -->
               {% else %}
@@ -54,11 +48,8 @@
                 <p>No bookings yet. <a href="{{ url_for('event.index') }}">Browse events</a> to make a booking.</p>
               {% endif %}
             </div>
+            </div>
           </div>
         </div>
       </main>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    </div>
-    <footer class="footer">(C) Adrian Gadaleta, 2023. all rights reserved.</footer>
-  </body>
-</html>
+{% endblock %}

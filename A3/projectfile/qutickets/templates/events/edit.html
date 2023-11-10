@@ -2,9 +2,10 @@
 {% block content %}
 <main>
   <div class="col event-container">
-    <h4>Create New Event</h4>
+    <h4>EVENT ID: {{event.id}}</h4>
+    <a href="{{ url_for('event.show', id=event.id) }}" class="btn btn-register">Cancel Updates</a>
     {{render_form(form)}}
-
+    
     <iframe
       width="100%"
       height="200"
@@ -17,3 +18,6 @@
   </div>
 </main>
 {% endblock %}
+
+
+{{ url_for('event.show', id=event.id) }}
