@@ -66,7 +66,7 @@
               {% for comment in event.comments %}
               <div class="row border-bottom">  
                 <div class="col-md-12">  
-                  <b>{{comment.user_name}} <span class="ml-2 text-muted">{{comment.created_at}}</span></b>  
+                  <b><b style="font-size: 18px;">{{comment.user_name}}</b> left a comment <span class="ml-2 text-muted"> {{ comment.created_at.strftime('%d %b, %Y %H:%M') }}</span></b>  
                   <p>{{comment.text}}</p>  
                 </div>  
               </div>  
