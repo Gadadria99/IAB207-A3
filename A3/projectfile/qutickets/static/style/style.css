@@ -121,15 +121,11 @@ h1 {
    max-width: max-content;
    margin: 20 auto;
 }         
-   h1, h2, h3, h4 {
-   text-align: center;
-   color:white;
-   font: helvetica;
-}
+
 .ttop {
 
    color:#ffffff;
-   font-family: Verdana, sans-serif !important;
+   font-family: Helvetica, sans-serif !important;
    border-radius:6px;
    padding:10px;
    background-color: #1fbcff88;

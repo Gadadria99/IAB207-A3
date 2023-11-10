@@ -75,7 +75,6 @@ class Bookings(db.Model, UserMixin):
     num_tickets = db.Column(db.Integer, nullable=False)
     purchase_date = db.Column(db.DateTime, default=datetime.utcnow)
     
-
     def __init__(self, user_id, event_id, num_tickets):
         self.user_id = user_id
         self.event_id = event_id
