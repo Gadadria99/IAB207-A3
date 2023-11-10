@@ -41,10 +41,11 @@
                 <div class="form-group">
                   <button name="submit" type="submit" class="btn btn-register">PLACE BOOKING</button>
               </div>
-              </form>
+              
               {% else %}
               <div class="status-not-open">Event Status: {{event.status}}</div>
               {% endif %}
+            </form>
               <p>
                 {{event.description}} 
               </p>
@@ -57,13 +58,15 @@
                   <h2>Comments</h2>  
                 </div> 
                 <div class="col-md-6">
+                  
                   {{render_form(form, "/events/{0}/comment".format(event.id))}}
+                
                 </div> 
               </div>  
               {% for comment in event.comments %}
               <div class="row border-bottom">  
                 <div class="col-md-12">  
-                  <b>{{comment.user}} <span class="ml-2 text-muted">{{comment.created_at}}</span></b>  
+                  <b>{{comment.user_name}} <span class="ml-2 text-muted">{{comment.created_at}}</span></b>  
                   <p>{{comment.text}}</p>  
                 </div>  
               </div>  

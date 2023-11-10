@@ -41,6 +41,8 @@ def create():
     location=form.location.data, category=form.category.data, status=form.status.data, 
     eventTime=form.eventTime.data, venueType=form.venueType.data, venueName=form.venueName.data,
     ticketsAvailable=form.ticketsAvailable.data, user_id=current_user.id)
+    if (event.eventTime < current_time):
+        event.status = 'inactive'
     # add the object to the db session
     db.session.add(event)
     # commit to the database
@@ -128,7 +130,7 @@ def comment(id):
     if form.validate_on_submit():  
       # read the comment from the form, associate the Comment's destination field
       # with the destination object from the above DB query
-      comment = Comment(text=form.text.data, event=event) 
+      comment = Comment(text=form.text.data, event=event, user_id=current_user.id, user_name=current_user.name) 
       #here the back-referencing works - comment.destination is set
       # and the link is created
       db.session.add(comment) 

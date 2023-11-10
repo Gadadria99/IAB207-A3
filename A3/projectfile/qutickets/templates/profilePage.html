@@ -26,6 +26,7 @@
                   <h4>BOOKING ID: {{ booking.id }}</h4>
                   <h3>No. of tickets booked: {{ booking.num_tickets }}</h3>
                   <h5>Event booked @ {{ booking.purchase_date.strftime('%H:%M on %d/%m/%y') }}</h5>
+                  
                 {% endfor %}
                 <!-- End of loop -->
               {% else %}

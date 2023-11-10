@@ -14,6 +14,8 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), index=True, unique=True, nullable=False)
     emailid = db.Column(db.String(100), index=True, nullable=False)
+    contactNo = db.Column(db.Integer, nullable=False)
+    address = db.Column(db.String(255), index=True, nullable=False)
 	#password is never stored in the DB, an encrypted password is stored
 	# the storage should be at least 255 chars long
     password_hash = db.Column(db.String(255), nullable=False)
@@ -62,7 +64,8 @@ class Comment(db.Model):
     # add the foreign key
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
-
+    user_name = db.Column(db.String(100), nullable=False)
+    
     # string print method
     def __repr__(self):
         return f"Comment: {self.text}"
